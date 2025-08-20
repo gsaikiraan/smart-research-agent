@@ -21,6 +21,10 @@ class Config:
     # Search Configuration
     SEARCH_API_KEY: str = os.getenv('SEARCH_API_KEY','')
     MAX_SEARCH_RESULTS: int = int(os.getenv('MAX_SEARCH_RESULTS','5'))
+    
+    BRAVE_API_KEY: str = os.getenv("BRAVE_API_KEY","")
+    BRAVE_SEARCH_ENDPOINT: str = "https://api.search.brave.com/res/v1/web/search"
+
 
     # Agent Configuration
     REPORT_OUTPUT_DIR: str = os.getenv('REPORT_OUTPUT_DIR','./reports')
@@ -40,7 +44,15 @@ class Config:
             print("Your API key should start with 'gsk_'")
             return False
         
+        if not cls.BRAVE_API_KEY:
+            print("Error: BRAVE_API_KEY not found in environment")
+            print(" Make sure you've added your Brave Search API key to the .env file")
+
+            return False
         return True
+    
+        
+        
     
     @classmethod
     def display_config(cls):
